@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turbobpe"
+version = "0.1.1"
+description = "A fast BPE tokenizer, minbpe with CPython-accelerated core"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+dependencies = ["regex>=2023.0"]
+authors = [{ name = "Amrendra Gupta"}]
+keywords = ["BPE", "Byte Pair Encoding","minbpe", "LLM", "Tokenizer", "CPython"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Windows",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: TextProcessing",
+	
+]
+
+[project.urls]
+Documentation = "https://github.com/Amrendra-gupta/turbobpe#readme"
+Homepage = "https://github.com/Amrendra-gupta/turbobpe"
+Repository = "https://github.com/Amrendra-gupta/turbobpe"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+turbobpe = ["*.c"]
+
+[tool.cibuildwheel]
+# Build for CPython 3.9–3.14, skip PyPy and 32-bit Windows
+build = "cp39-* cp310-* cp311-* cp312-* cp313-* cp314-* cp314t-*"
+skip = "*-win32 *-musllinux_i686 pp*"
+
+test-command = "python -c \"from turbobpe import Tokenizer, RegexTokenizer; print('OK')\""
+
+[tool.cibuildwheel.linux]
+manylinux-x86_64-image    = "manylinux_2_28"
+manylinux-aarch64-image   = "manylinux_2_28"
+archs = ["x86_64", "aarch64"]
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]

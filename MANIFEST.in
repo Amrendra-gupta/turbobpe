@@ -1,0 +1,18 @@
+include src/turbobpe/utils.c
+
+include README.md
+include LICENSE
+include pyproject.toml
+include setup.py
+
+exclude src/turbobpe/utils.pyx
+
+# Exclude build artefacts and dev tooling
+exclude src/turbobpe/*.so
+exclude src/turbobpe/*.pyd
+prune build
+prune dist
+prune *.egg-info
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store
