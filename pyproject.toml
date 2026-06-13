@@ -26,8 +26,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: TextProcessing",
-	
 ]
 
 [project.urls]
