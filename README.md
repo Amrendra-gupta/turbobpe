@@ -32,6 +32,9 @@ The speedup grows as vocab size increases — the larger the merge table, the mo
 | `taylorswift.txt` | ~1.07 sec | ~0.085 sec | **~12×** |
 | 4 MB corpus | ~29 sec | ~1.8 sec | **~16×** |
 
+
+*On a 250 MB corpus with an 8K vocab, turboBPE v0.1.1 completed training in ~152 sec. Version 0.1.2 brought that down to ~112 sec — roughly a 26% improvement, now more faster than minbpe on the same workload.*
+
 ---
 
 ## How does it work?

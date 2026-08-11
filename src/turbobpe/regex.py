@@ -81,12 +81,20 @@ class RegexTokenizer(Tokenizer):
         """Encoding that ignores any special tokens."""
         # split text into chunks of text by categories defined in regex pattern
         text_chunks = re.findall(self.compiled_pattern, text)
+        merges = self.merges
         # all chunks of text are encoded separately, then results are joined
         ids = []
+        ids_extend = ids.extend
+        cache = {}
+        max_cache_size = 512
         for chunk in text_chunks:
-            chunk_bytes = chunk.encode("utf-8") # raw bytes
-            chunk_ids = _encode_chunk(self.merges, chunk_bytes)
-            ids.extend(chunk_ids)
+            cached = cache.get(chunk)
+            if cached is None:
+                if len(cache) >= max_cache_size:
+                    cache.clear()
+                cached = _encode_chunk(merges, chunk.encode("utf-8"))
+                cache[chunk] = cached
+            ids_extend(cached)
         return ids
 
     def encode(self, text, allowed_special="none_raise"):
